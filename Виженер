@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string initial_text = "hello world";
+    string key = "cat";
+    string key_text;
+
+    int key_len = key.length();
+    int count = 0;
+
+    for (int i = 0; i < initial_text.length(); ++i) {
+        if (!(97 <= static_cast<int>(initial_text[i]) && static_cast<int>(initial_text[i]) <= 122)) {
+            key_text += initial_text[i];
+            count++;
+        }
+        else {
+            key_text += key[(i - count) % key_len];
+        }
+    }
+
+    string vigenere;
+    for (int i = 0; i < initial_text.length(); ++i) {
+        if (!(97 <= static_cast<int>(initial_text[i]) && static_cast<int>(initial_text[i]) <= 122)) {
+            char character = initial_text[i];
+            vigenere += character;
+        }
+        else {
+            char character = static_cast<char>(97 + (static_cast<int>(initial_text[i]) +
+                static_cast<int>(key_text[i]) - 97 - 97) % 26);
+            vigenere += character;
+        }
+    }
+
+    cout << vigenere << endl;
+
+    return 0;
+}
